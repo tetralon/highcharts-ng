@@ -128,25 +128,24 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           }
         }
       });
+      
+      /*
+      So all configuration parameters are equal to the official documentation:
+      http://api.highcharts.com/highcharts
+      */
+      return ArrayMergeRecursive(config, mergedOptions);
+    };
 
-      if(config.title) {
-        mergedOptions.title = config.title;
+    var ArrayMergeRecursive = function(){
+      if(arguments.length < 2){
+        throw new Error("ArrayMergeRecursive: Please enter two or more objects to merge!");
       }
-      if (config.subtitle) {
-        mergedOptions.subtitle = config.subtitle;
+      console.log('arguments', arguments);
+      var arr1=arguments[0];
+      for(var i=0; i<=arguments.length; i++ ){
+        $.extend(true, arr1, arguments[i]);                 
       }
-      if (config.credits) {
-        mergedOptions.credits = config.credits;
-      }
-      if(config.size) {
-        if (config.size.width) {
-          mergedOptions.chart.width = config.size.width;
-        }
-        if (config.size.height) {
-          mergedOptions.chart.height = config.size.height;
-        }
-      }
-      return mergedOptions;
+      return arr1;                
     };
 
     var updateZoom = function (axis, modelAxis) {
